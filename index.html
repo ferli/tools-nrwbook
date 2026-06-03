@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools · NRW Playbook</title>
+<meta name="description" content="Peralatan, template, kalkulator, dan daftar periksa untuk praktisi NRW. Companion site NRW Playbook.">
+<style>
+  :root {
+    --bg: #0f172a; --bg2: #1e293b; --bg3: #334155;
+    --text: #e2e8f0; --text2: #94a3b8; --acc: #38bdf8;
+    --acc2: #2dd4bf; --warn: #fbbf24; --red: #f87171;
+    --border: #334155;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; line-height: 1.7; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+  header { text-align: center; padding: 4rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem; }
+  header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px; }
+  header h1 span { color: var(--acc); }
+  header p { color: var(--text2); margin-top: 0.75rem; font-size: 1.05rem; }
+  header .back { display: inline-block; margin-top: 1rem; color: var(--acc); font-size: 0.9rem; text-decoration: none; border: 1px solid var(--border); padding: 0.35rem 1rem; border-radius: 6px; transition: .2s; }
+  header .back:hover { background: var(--bg2); }
+
+  h2 { font-size: 1.5rem; font-weight: 700; margin: 3rem 0 1.25rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  h2 .ico { margin-right: 0.5rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; transition: .2s; display: flex; flex-direction: column; }
+  .card:hover { border-color: var(--acc); }
+  .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .card .loc { font-size: 0.78rem; color: var(--acc); margin-bottom: 0.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card p { color: var(--text2); font-size: 0.9rem; flex: 1; }
+  .card a { display: inline-block; margin-top: 1rem; color: var(--acc); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+  .card a:hover { text-decoration: underline; }
+  .card .tag { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 4px; margin-right: 0.3rem; font-weight: 600; }
+  .tag-ext { background: rgba(56,189,248,.15); color: var(--acc); }
+  .tag-dl { background: rgba(45,212,191,.15); color: var(--acc2); }
+  .tag-calc { background: rgba(251,191,36,.15); color: var(--warn); }
+
+  .calc-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; }
+  .calc-card h3 { font-size: 1.05rem; margin-bottom: 0.75rem; }
+  .calc-card label { display: block; font-size: 0.85rem; color: var(--text2); margin-bottom: 0.25rem; }
+  .calc-card input, .calc-card select { width: 100%; padding: 0.55rem 0.75rem; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.95rem; margin-bottom: 0.6rem; }
+  .calc-card input:focus { outline: none; border-color: var(--acc); }
+  .calc-card .result { margin-top: 0.75rem; padding: 0.75rem; background: rgba(56,189,248,.1); border-radius: 6px; font-weight: 700; font-size: 1.1rem; color: var(--acc); }
+  .calc-card button { padding: 0.55rem 1.25rem; background: var(--acc); color: var(--bg); border: none; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.9rem; margin-top: 0.25rem; }
+  .calc-card button:hover { opacity: .85; }
+
+  footer { text-align: center; padding: 3rem 0 2rem; color: var(--text2); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+  footer a { color: var(--acc); }
+
+  .checklist { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1rem; }
+  .checklist h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .checklist ul { list-style: none; padding: 0; }
+  .checklist li { padding: 0.3rem 0; font-size: 0.9rem; color: var(--text2); border-bottom: 1px solid rgba(51,65,85,.5); }
+  .checklist li::before { content: "☐ "; color: var(--acc); margin-right: 0.4rem; }
+
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.6rem; }
+    .grid { grid-template-columns: 1fr; }
+    .wrap { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Tools · <span>NRW Playbook</span></h1>
+  <p>Peralatan, template, kalkulator, dan daftar periksa untuk praktisi NRW.<br>Companion site dari <em>NRW Playbook</em>.</p>
+  <a href="https://nrwbook.com" class="back">← Kembali ke nrwbook.com</a>
+</header>
+
+<!-- ========== SOFTWARE ========== -->
+<h2><span class="ico">💻</span> Software & Perangkat Audit</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Eksternal</span> Bab 3, 5</div>
+    <h3>AWWA Free Water Audit Software (FWAS)</h3>
+    <p>Software gratis standar global untuk audit neraca air berbasis AWWA M36. Menghitung NRW, skor validitas data, dan confidence interval.</p>
+    <a href="https://www.awwa.org/toolbox/free-water-audit-software/" target="_blank">Buka AWWA FWAS →</a>
+  </div>
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Eksternal</span> Bab 14</div>
+    <h3>WB-EasyCalc</h3>
+    <p>Software gratis rekomendasi Bank Dunia untuk neraca air. Alternatif FWAS, cocok untuk PDAM yang baru memulai audit.</p>
+    <a href="https://www.wsp.org/content/wb-easycalc" target="_blank">Cari WB-EasyCalc →</a>
+  </div>
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Eksternal</span> Bab 5</div>
+    <h3>AWWA M36 — Water Audits and Loss Control Programs</h3>
+    <p>Manual standar Amerika untuk audit air dan validasi data meter. Rujukan utama metodologi FWAS.</p>
+    <a href="https://store.awwa.org/M36-Water-Audits-and-Loss-Control-Programs-Fifth-Edition" target="_blank">AWWA Store →</a>
+  </div>
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Eksternal</span> Bab 3</div>
+    <h3>AWWA M6 — Water Meters</h3>
+    <p>Manual teknis pemilihan, instalasi, pengujian, dan pemeliharaan meter air. Kurva degradasi akurasi per tipe meter.</p>
+    <a href="https://store.awwa.org/M6-Water-Meters-Selection-Installation-Testing-and-Maintenance-Sixth-Edition" target="_blank">AWWA Store →</a>
+  </div>
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Eksternal</span> Bab 11</div>
+    <h3>SNI 2547:2024 — Meter Air Minum</h3>
+    <p>Standar Nasional Indonesia untuk meter air minum, adopsi dari ISO 4064:2014. Wajib jadi acuan spesifikasi teknis pengadaan meter.</p>
+    <a href="https://bsn.go.id/" target="_blank">BSN →</a>
+  </div>
+
+</div>
+
+<!-- ========== KALKULATOR ========== -->
+<h2><span class="ico">🔢</span> Kalkulator Interaktif</h2>
+
+<div class="calc-card" id="calc-favad">
+  <h3>FAVAD — Dampak Perubahan Tekanan ke Kebocoran</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Rumus: Q₁/Q₀ = (P₁/P₀)^N¹. Dari Bab 9.</p>
+  <label>Tekanan Awal (P₀, bar)</label><input type="number" id="fav_p0" value="4" step="0.1">
+  <label>Tekanan Baru (P₁, bar)</label><input type="number" id="fav_p1" value="2" step="0.1">
+  <label>Eksponen N1</label>
+  <select id="fav_n1">
+    <option value="0.5">0.5 — Pipa Logam (lubang bulat)</option>
+    <option value="1.0">1.0 — Gasket/Fitting</option>
+    <option value="1.5" selected>1.5 — PVC/Retak memanjang</option>
+  </select>
+  <button onclick="calcFavad()">Hitung</button>
+  <div class="result" id="fav_result">Tekan Hitung</div>
+</div>
+
+<div class="calc-card" id="calc-ili">
+  <h3>ILI — Infrastructure Leakage Index</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">ILI = CARL / UARL. Dari Bab 6.</p>
+  <label>CARL — Current Annual Real Losses (m³/tahun)</label><input type="number" id="ili_carl" value="500000">
+  <label>UARL — Unavoidable Annual Real Losses (m³/tahun)</label><input type="number" id="ili_uarl" value="100000">
+  <button onclick="calcIli()">Hitung</button>
+  <div class="result" id="ili_result">Tekan Hitung</div>
+</div>
+
+<div class="calc-card" id="calc-uar">
+  <h3>UARL — Unavoidable Annual Real Losses</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">UARL = (18×Lm + 0.8×Nc + 25×Lp) × P. Hasil dalam Liter/hari. Dari Bab 6.</p>
+  <label>Panjang Pipa Utama, Lm (km)</label><input type="number" id="uar_lm" value="150" step="0.1">
+  <label>Jumlah Sambungan, Nc</label><input type="number" id="uar_nc" value="20000">
+  <label>Panjang Pipa Dinas, Lp (km)</label><input type="number" id="uar_lp" value="80" step="0.1">
+  <label>Tekanan Rata-rata, P (meter)</label><input type="number" id="uar_p" value="35" step="0.1">
+  <button onclick="calcUarl()">Hitung</button>
+  <div class="result" id="uar_result">Tekan Hitung</div>
+</div>
+
+<div class="calc-card" id="calc-payback">
+  <h3>Payback Period — Periode Balik Modal</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Payback = Investasi / Penghematan per Tahun. Dari Bab 4 & 10.</p>
+  <label>Total Investasi (Rp)</label><input type="number" id="pb_inv" value="2500000000">
+  <label>Penghematan per Tahun (Rp)</label><input type="number" id="pb_save" value="1200000000">
+  <button onclick="calcPayback()">Hitung</button>
+  <div class="result" id="pb_result">Tekan Hitung</div>
+</div>
+
+<div class="calc-card" id="calc-alr">
+  <h3>ALR Time — Volume Hilang karena Durasi Bocor</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Volume = Debit × Durasi. Dari Bab 10.</p>
+  <label>Debit Bocor (L/detik)</label><input type="number" id="alr_q" value="15" step="0.1">
+  <label>Durasi Kebocoran (jam)</label><input type="number" id="alr_t" value="9" step="0.5">
+  <label>Biaya Produksi (Rp/m³)</label><input type="number" id="alr_cost" value="4000">
+  <button onclick="calcAlr()">Hitung</button>
+  <div class="result" id="alr_result">Tekan Hitung</div>
+</div>
+
+<div class="calc-card" id="calc-taksasi">
+  <h3>Taksasi Denda — Konsumsi Tidak Sah</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Denda = Q × Durasi × Tarif. Dari Bab 16.</p>
+  <label>Ukuran Pipa Bypass</label>
+  <select id="tak_size">
+    <option value="1.5">1/2 inch — 1.5 m³/jam</option>
+    <option value="2.5">3/4 inch — 2.5 m³/jam</option>
+    <option value="4.0" selected>1 inch — 4.0 m³/jam</option>
+  </select>
+  <label>Jam Pemakaian per Hari</label><input type="number" id="tak_hrs" value="10">
+  <label>Durasi Pelanggaran (bulan)</label><input type="number" id="tak_dur" value="6">
+  <label>Tarif Air (Rp/m³)</label><input type="number" id="tak_tarif" value="8000">
+  <button onclick="calcTaksasi()">Hitung</button>
+  <div class="result" id="tak_result">Tekan Hitung</div>
+</div>
+
+<!-- ========== DAFTAR PERIKSA ========== -->
+<h2><span class="ico">✅</span> Daftar Periksa & Template</h2>
+<p style="color:var(--text2);margin-bottom:1.5rem;">Daftar periksa di bawah diadaptasi langsung dari buku. Gunakan sebagai alat diagnosis dan dokumentasi lapangan. Cocok untuk dicetak atau diisi digital.</p>
+
+<div class="checklist">
+  <h3>📋 Daftar Periksa 45 Menit — Neraca Air Siap Diaudit <span style="font-weight:400;color:var(--text2);font-size:.8rem;">(Bab 3)</span></h3>
+  <ul>
+    <li>Pastikan meter induk aktif dan terbaca, bukan estimasi jam pompa</li>
+    <li>Tarik data konsumsi resmi ditagih (BAC) dan cek anomali pelanggan nol</li>
+    <li>Catat konsumsi resmi gratis (UAC) dengan meter, bukan taksiran</li>
+    <li>Pisahkan Apparent Losses dan Real Losses secara eksplisit</li>
+    <li>Tandai asumsi yang dipakai, lalu beri label (ilustrasi) jika belum terukur</li>
+    <li>Simpan satu halaman ringkas: angka inti, sumber, dan catatan validasi</li>
+  </ul>
+</div>
+
+<div class="checklist">
+  <h3>📋 Lembar Kerja Step Test <span style="font-weight:400;color:var(--text2);font-size:.8rem;">(Bab 7)</span></h3>
+  <ul>
+    <li>Peta zona dengan batas DMA dan lokasi semua valve disiapkan</li>
+    <li>Valve batas diverifikasi bisa menutup penuh (tidak frozen)</li>
+    <li>Data logger dipasang di meter induk dan dikonfirmasi merekam</li>
+    <li>Tekanan statis tercatat sebelum penutupan pertama</li>
+    <li>Urutan penutupan step dicatat dengan waktu presisi (jam:menit)</li>
+    <li>Setiap step ditahan minimal 10 menit untuk stabilisasi aliran</li>
+    <li>Penurunan aliran per step dihitung dan dibandingkan dengan estimasi</li>
+    <li>Segmen dengan penurunan terbesar ditandai sebagai prioritas investigasi</li>
+    <li>Hasil step test didokumentasi dalam laporan 1 halaman untuk Manajer Teknik</li>
+    <li>Segmen prioritas diserahkan ke Tim ALC untuk pinpointing dalam 1×24 jam</li>
+  </ul>
+</div>
+
+<div class="checklist">
+  <h3>📋 Daftar Periksa Pra-Operasi Tim ALC <span style="font-weight:400;color:var(--text2);font-size:.8rem;">(Bab 8)</span></h3>
+  <ul>
+    <li>Semua alat diisi daya penuh: correlator, ground mic, listening stick</li>
+    <li>Headphone diperiksa; kabel tidak putus, suara jernih</li>
+    <li>GPS atau ponsel dengan aplikasi koordinat siap dan menyala</li>
+    <li>Peta zona target dicetak atau diunduh offline</li>
+    <li>Form laporan harian (digital atau kertas) siap diisi</li>
+    <li>Toolkit dasar: kunci pipa, seal tape, meteran, senter</li>
+    <li>Safety vest dan sepatu safety dikenakan</li>
+    <li>Radio atau HT antar anggota tim berfungsi (jangkauan minimal 500 m)</li>
+    <li>Briefing pagi 5 menit: zona target, target temuan, pembagian peran</li>
+    <li>Jalur survei sudah direncanakan (titik dengar prioritas ditandai di peta)</li>
+    <li>Baterai cadangan untuk correlator dan data logger dibawa</li>
+  </ul>
+</div>
+
+<div class="checklist">
+  <h3>📋 Prinsip 3 Foto — Dokumentasi Perbaikan <span style="font-weight:400;color:var(--text2);font-size:.8rem;">(Bab 10)</span></h3>
+  <ul>
+    <li><strong>Foto Before:</strong> Semburan/rembesan air jelas terlihat — bukti kebocoran nyata (anti-fiktif)</li>
+    <li><strong>Foto Action:</strong> Klem terpasang + alas pasir (bedding) terlihat — bukti prosedur benar</li>
+    <li><strong>Foto After:</strong> Aspal/beton sudah dirapikan kembali — bukti penyelesaian baik</li>
+  </ul>
+</div>
+
+<div class="checklist">
+  <h3>📋 Daftar Periksa Cepat Kesehatan DMA Bulanan <span style="font-weight:400;color:var(--text2);font-size:.8rem;">(Bab 7)</span></h3>
+  <ul>
+    <li>MNF 30-hari terakhir diperbandingkan dengan baseline; anomali >20% ditandai</li>
+    <li>Semua boundary valve diperiksa posisinya (sesuai desain, tidak ada yang dibuka tanpa izin)</li>
+    <li>Meter induk diverifikasi tidak drift (bandingkan data logger vs bacaan manual)</li>
+    <li>Pressure Reducing Valve dicek; tekanan keluar sesuai setpoint</li>
+    <li>Chamber meter induk dibersihkan dari sedimen dan genangan</li>
+    <li>Kabel dan konektor data logger diperiksa (tidak ada korosi atau gigitan tikus)</li>
+    <li>Level sinyal GSM dicek (minimal 2 bar; jika kurang, pasang antena eksternal)</li>
+    <li>Data logger diunduh penuh (tidak ada celah kosong >2 jam)</li>
+    <li>Grafik MNF dan tekanan dicetak dan ditempel di papan informasi tim</li>
+    <li>Satu temuan anomali ditindaklanjuti dengan kunjungan lapangan dalam 1×24 jam</li>
+    <li>Laporan kesehatan bulanan dikirim ke Manajer Teknik (maksimal 1 halaman)</li>
+  </ul>
+</div>
+
+<div class="checklist">
+  <h3>📋 Template Business Case NRW <span style="font-weight:400;color:var(--text2);font-size:.8rem;">(Bab 14)</span></h3>
+  <ul>
+    <li><strong>1. Ringkasan Eksekutif:</strong> 1 halaman — apa masalah, berapa solusi, berapa biaya</li>
+    <li><strong>2. Latar Belakang:</strong> Kondisi PDAM saat ini, urgensi</li>
+    <li><strong>3. Analisis Situasi:</strong> Water Balance 12 bulan terakhir, data pendukung</li>
+    <li><strong>4. Rencana Intervensi:</strong> Opsi A vs B vs C, perbandingan</li>
+    <li><strong>5. Analisis Keuangan:</strong> NPV, IRR, Payback Period</li>
+    <li><strong>6. Rencana Implementasi:</strong> Timeline, milestone, pemilik</li>
+    <li><strong>7. Analisis Risiko:</strong> Risiko teknis, finansial, operasional + mitigasi</li>
+    <li><strong>8. Lampiran:</strong> Data detail, grafik, perhitungan, foto lapangan</li>
+  </ul>
+</div>
+
+<div class="checklist">
+  <h3>📋 Daftar Periksa Keberlanjutan NRW <span style="font-weight:400;color:var(--text2);font-size:.8rem;">(Bab 18)</span></h3>
+  <ul>
+    <li>Anggaran preventive maintenance tersedia (minimal 2% nilai aset/tahun)</li>
+    <li>Anggaran ALC operations tersedia (minimal 5% pendapatan/tahun)</li>
+    <li>Kalibrasi meter induk dijadwalkan dan dianggarkan tahunan</li>
+    <li>Program shadowing & transfer pengetahuan berjalan (bukan hanya saat proyek)</li>
+    <li>SOP tertulis untuk semua proses kritis: ALC, perbaikan, kalibrasi, DMA, investigasi</li>
+    <li>Sistem mentorship formal berjalan (senior → junior)</li>
+    <li>Dashboard MNF harian aktif dan dipantau (bukan hanya laporan bulanan)</li>
+    <li>Natural Rate of Rise (NRR) dihitung dan kapasitas perbaikan disesuaikan</li>
+  </ul>
+</div>
+
+<!-- ========== STANDAR ========== -->
+<h2><span class="ico">📏</span> Standar & Regulasi Teknis</h2>
+<div class="grid">
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Standar</span> Bab 3, 5, 8</div>
+    <h3>AWWA M36</h3>
+    <p>Water Audits and Loss Control Programs. Manual audit air dan program pengendalian kehilangan.</p>
+    <a href="https://store.awwa.org/M36-Water-Audits-and-Loss-Control-Programs-Fifth-Edition" target="_blank">AWWA Store →</a>
+  </div>
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Standar</span> Bab 11</div>
+    <h3>ISO 4064:2014 / SNI 2547:2024</h3>
+    <p>Standar meter air minum. Memperkenalkan R-Rating (Q3/Q1) menggantikan sistem Kelas B/C.</p>
+    <a href="https://bsn.go.id/" target="_blank">BSN →</a>
+  </div>
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Standar</span> Bab 19</div>
+    <h3>ISO 55001:2024 — Asset Management</h3>
+    <p>Standar internasional sistem manajemen aset. Kerangka untuk memastikan aset dikelola berkelanjutan.</p>
+    <a href="https://www.iso.org/standard/83054.html" target="_blank">ISO →</a>
+  </div>
+
+  <div class="card">
+    <div class="loc"><span class="tag tag-ext">Regulasi</span> Bab 2, 3, 7</div>
+    <h3>Permen PUPR 27/2016 — SPAM</h3>
+    <p>Peraturan Menteri PUPR tentang Penyelenggaraan Sistem Penyediaan Air Minum.</p>
+    <a href="https://peraturan.go.id/id/permenpu-no-27-prt-m-2016-tahun-2016" target="_blank">Peraturan.go.id →</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>Companion site dari <a href="https://nrwbook.com">NRW Playbook</a> — oleh <a href="https://fdiskandar.com">FD Iskandar</a>.</p>
+  <p style="margin-top:.5rem">Alat dan kalkulator bersifat ilustratif. Verifikasi independen tetap diperlukan sebelum pengambilan keputusan operasional.</p>
+</footer>
+
+</div>
+
+<script>
+function calcFavad() {
+  const p0 = parseFloat(document.getElementById('fav_p0').value);
+  const p1 = parseFloat(document.getElementById('fav_p1').value);
+  const n1 = parseFloat(document.getElementById('fav_n1').value);
+  const ratio = Math.pow(p1 / p0, n1);
+  const change = ((ratio - 1) * 100);
+  const dir = change >= 0 ? 'naik' : 'turun';
+  document.getElementById('fav_result').innerHTML =
+    `Kebocoran <strong>${dir} ${Math.abs(change).toFixed(1)}%</strong> (` +
+    `Q₁/Q₀ = (${p1}/${p0})^${n1} = <strong>${ratio.toFixed(4)}</strong>)`;
+}
+
+function calcIli() {
+  const carl = parseFloat(document.getElementById('ili_carl').value);
+  const uarl = parseFloat(document.getElementById('ili_uarl').value);
+  const ili = carl / uarl;
+  let band = ''; let color = '';
+  if (ili < 2) { band = 'Band A — Luar Biasa'; color = '#2dd4bf'; }
+  else if (ili < 4) { band = 'Band B — Bagus'; color = '#2dd4bf'; }
+  else if (ili < 8) { band = 'Band C — Wajar (perlu ALC intensif)'; color = '#fbbf24'; }
+  else { band = 'Band D — Buruk (rehabilitasi total)'; color = '#f87171'; }
+  document.getElementById('ili_result').innerHTML =
+    `ILI = ${carl.toLocaleString()} / ${uarl.toLocaleString()} = <strong>${ili.toFixed(2)}</strong><br>` +
+    `<span style="color:${color}">${band}</span>`;
+}
+
+function calcUarl() {
+  const lm = parseFloat(document.getElementById('uar_lm').value);
+  const nc = parseFloat(document.getElementById('uar_nc').value);
+  const lp = parseFloat(document.getElementById('uar_lp').value);
+  const p = parseFloat(document.getElementById('uar_p').value);
+  const uarl = (18 * lm + 0.8 * nc + 25 * lp) * p;
+  const perYear = uarl * 365 / 1000;
+  document.getElementById('uar_result').innerHTML =
+    `UARL = (18×${lm} + 0.8×${nc} + 25×${lp}) × ${p} = <strong>${uarl.toLocaleString()} Liter/hari</strong><br>` +
+    `≈ <strong>${perYear.toLocaleString()} m³/tahun</strong>`;
+}
+
+function calcPayback() {
+  const inv = parseFloat(document.getElementById('pb_inv').value);
+  const save = parseFloat(document.getElementById('pb_save').value);
+  const yrs = inv / save;
+  const mos = yrs * 12;
+  document.getElementById('pb_result').innerHTML =
+    `Payback = Rp ${inv.toLocaleString()} / Rp ${save.toLocaleString()} = <strong>${yrs.toFixed(2)} tahun</strong><br>` +
+    `≈ <strong>${mos.toFixed(1)} bulan</strong>`;
+}
+
+function calcAlr() {
+  const q = parseFloat(document.getElementById('alr_q').value);
+  const t = parseFloat(document.getElementById('alr_t').value);
+  const cost = parseFloat(document.getElementById('alr_cost').value);
+  const vol = q * t * 3600 / 1000;
+  const loss = vol * cost;
+  document.getElementById('alr_result').innerHTML =
+    `Volume Hilang = ${q} L/det × ${t} jam = <strong>${vol.toLocaleString()} m³</strong><br>` +
+    `Kerugian = ${vol.toLocaleString()} m³ × Rp ${cost.toLocaleString()} = <strong>Rp ${loss.toLocaleString()}</strong>`;
+}
+
+function calcTaksasi() {
+  const q = parseFloat(document.getElementById('tak_size').value);
+  const hrs = parseFloat(document.getElementById('tak_hrs').value);
+  const dur = parseFloat(document.getElementById('tak_dur').value);
+  const tarif = parseFloat(document.getElementById('tak_tarif').value);
+  const daily = q * hrs;
+  const monthly = daily * 30;
+  const total = monthly * dur * tarif;
+  document.getElementById('tak_result').innerHTML =
+    `Debit = ${q} m³/jam × ${hrs} jam = <strong>${daily} m³/hari</strong><br>` +
+    `Volume ${dur} bulan = ${monthly.toLocaleString()} × ${dur} = <strong>${(monthly * dur).toLocaleString()} m³</strong><br>` +
+    `Denda = <strong>Rp ${total.toLocaleString()}</strong>`;
+}
+</script>
+
+</body>
+</html>
