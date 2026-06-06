@@ -117,8 +117,8 @@
 <h2><span class="ico">🔢</span> Kalkulator Interaktif</h2>
 
 <div class="calc-card" id="calc-favad">
-  <h3>FAVAD — Dampak Perubahan Tekanan ke Kebocoran</h3>
-  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Rumus: Q₁/Q₀ = (P₁/P₀)^N¹. Dari Bab 9.</p>
+  <h3>FAVAD — Respons Komponen Kebocoran terhadap Tekanan</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Rumus: Q₁/Q₀ = (P₁/P₀)^N¹. Dari Bab 9. Hasil ini membaca komponen kebocoran yang sensitif terhadap tekanan, bukan jaminan perubahan NRW total.</p>
   <label>Tekanan Awal (P₀, bar)</label><input type="number" id="fav_p0" value="4" step="0.1">
   <label>Tekanan Baru (P₁, bar)</label><input type="number" id="fav_p1" value="2" step="0.1">
   <label>Eksponen N1</label>
@@ -128,7 +128,7 @@
     <option value="1.5" selected>1.5 — PVC/Retak memanjang</option>
   </select>
   <button onclick="calcFavad()">Hitung</button>
-  <div class="result" id="fav_result">Tekan Hitung</div>
+  <div class="result" id="fav_result" aria-live="polite">Tekan Hitung</div>
 </div>
 
 <div class="calc-card" id="calc-ili">
@@ -339,8 +339,10 @@ function calcFavad() {
   const change = ((ratio - 1) * 100);
   const dir = change >= 0 ? 'naik' : 'turun';
   document.getElementById('fav_result').innerHTML =
-    `Kebocoran <strong>${dir} ${Math.abs(change).toFixed(1)}%</strong> (` +
-    `Q₁/Q₀ = (${p1}/${p0})^${n1} = <strong>${ratio.toFixed(4)}</strong>)`;
+    `Komponen kebocoran sensitif tekanan <strong>${dir} ${Math.abs(change).toFixed(1)}%</strong> (` +
+    `Q₁/Q₀ = (${p1}/${p0})^${n1} = <strong>${ratio.toFixed(4)}</strong>).<br>` +
+    `<span style="display:block;margin-top:.45rem;color:var(--text2);font-size:.85rem;font-weight:500">` +
+    `Verifikasi dampak sistem dengan MNF, tekanan titik kritis, keluhan pelanggan, dan kondisi suplai lokal.</span>`;
 }
 
 function calcIli() {
