@@ -1,0 +1,6 @@
+Metrik,Definisi,Cara hitung,Target baik,Nilai periode ini,Status,Catatan
+Average Awareness Time (AAT),Rata-rata waktu dari bocor terjadi sampai diketahui,Total waktu awareness / jumlah kejadian,< 24 jam,,,
+Average Location Time (ALT),Rata-rata waktu mencari titik bocor,Total waktu location / jumlah kejadian,< 4 jam,,,
+Average Repair Time (ART),Rata-rata waktu perbaikan,Total waktu repair / jumlah kejadian,< 12 jam,,,
+Total ALR Time,AAT + ALT + ART,Jumlah ketiganya,< 48 jam,,,
+Repeat Failure Rate,% kebocoran kembali di titik sama,Jumlah repeat / total perbaikan x 100%,< 5%,,,
