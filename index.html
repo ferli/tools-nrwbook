@@ -140,6 +140,15 @@
   <div class="result" id="ili_result">Tekan Hitung</div>
 </div>
 
+<div class="calc-card" id="calc-ali">
+  <h3>ALI — Apparent Loss Index</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">ALI = Kehilangan Semu / (Jumlah Sambungan × Hari). Hasil dalam liter/sambungan/hari. Dari Bab 6 dan Rumus 20.4.</p>
+  <label>Kehilangan Semu / Apparent Losses (m³/tahun)</label><input type="number" id="ali_al" value="250000">
+  <label>Jumlah Sambungan</label><input type="number" id="ali_conn" value="20000">
+  <button onclick="calcAli()">Hitung</button>
+  <div class="result" id="ali_result" aria-live="polite">Tekan Hitung</div>
+</div>
+
 <div class="calc-card" id="calc-uar">
   <h3>UARL — Unavoidable Annual Real Losses</h3>
   <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">UARL = (18×Lm + 0.8×Nc + 25×Lp) × P. Hasil dalam Liter/hari. Dari Bab 6.</p>
@@ -356,6 +365,20 @@ function calcIli() {
   else { band = 'Band D — Buruk (rehabilitasi total)'; color = '#f87171'; }
   document.getElementById('ili_result').innerHTML =
     `ILI = ${carl.toLocaleString()} / ${uarl.toLocaleString()} = <strong>${ili.toFixed(2)}</strong><br>` +
+    `<span style="color:${color}">${band}</span>`;
+}
+
+function calcAli() {
+  const al = parseFloat(document.getElementById('ali_al').value);
+  const conn = parseFloat(document.getElementById('ali_conn').value);
+  const ali = (al * 1000) / (conn * 365);
+  let band = ''; let color = '';
+  if (ali < 20) { band = 'Hijau — terkendali'; color = '#2dd4bf'; }
+  else if (ali <= 40) { band = 'Kuning — perlu perhatian'; color = '#fbbf24'; }
+  else { band = 'Merah — darurat komersial'; color = '#f87171'; }
+  document.getElementById('ali_result').innerHTML =
+    `ALI = (${al.toLocaleString()} m³/tahun × 1.000) / (${conn.toLocaleString()} × 365) = ` +
+    `<strong>${ali.toFixed(1)} liter/sambungan/hari</strong><br>` +
     `<span style="color:${color}">${band}</span>`;
 }
 
