@@ -1,0 +1,13 @@
+Item,Tahun 0,Tahun 1,Tahun 2,Tahun 3,Tahun 4,Tahun 5,Catatan
+Investasi awal,,,,,,,Masukkan sebagai angka negatif di Tahun 0
+OPEX tahunan,,,,,,,Biaya operasi dan pemeliharaan program NRW
+Penghematan produksi,,,,,,,Nilai air yang tidak perlu diproduksi
+Pendapatan tambahan,,,,,,,Air yang bisa dijual atau tertagih kembali
+Manfaat lain terukur,,,,,,,Contoh: pengurangan komplain atau biaya darurat yang bisa dinilai
+Arus kas bersih,,,,,,,Penghematan + pendapatan tambahan + manfaat lain - OPEX
+Faktor diskonto,,,,,,,1 / (1 + tingkat diskonto)^tahun
+Nilai kini arus kas,,,,,,,Arus kas bersih x faktor diskonto
+NPV,,,,,,,Jumlah nilai kini arus kas - investasi awal
+Payback kumulatif,,,,,,,Tahun saat arus kas kumulatif mulai positif
+IRR indikatif,,,,,,,Hitung di Excel/Sheets dengan fungsi IRR atas arus kas Tahun 0-5
+Keputusan,,,,,,,Layak / evaluasi ulang / tidak layak
