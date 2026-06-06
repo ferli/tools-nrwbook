@@ -1,0 +1,13 @@
+Item pemeriksaan,Frekuensi,Nilai/temuan,Status,Tindak lanjut,PIC,Tenggat,Catatan
+MNF 30 hari dibanding baseline,Bulanan,,,,,,
+Anomali MNF >20% ditandai,Bulanan,,,,,,
+Boundary valve sesuai posisi desain,Bulanan,,,,,,
+Meter induk vs data logger diverifikasi,Bulanan,,,,,,
+PRV keluar sesuai setpoint,Bulanan,,,,,,
+Chamber meter induk bersih dari sedimen/genangan,Bulanan,,,,,,
+Kabel dan konektor data logger aman,Bulanan,,,,,,
+Level sinyal GSM minimal 2 bar,Bulanan,,,,,,
+Data logger lengkap tanpa celah >2 jam,Bulanan,,,,,,
+Grafik MNF dan tekanan dicetak/dibagikan,Bulanan,,,,,,
+Temuan anomali ditindaklanjuti dalam 1x24 jam,Bulanan,,,,,,
+Laporan kesehatan dikirim ke Manajer Teknik,Bulanan,,,,,,

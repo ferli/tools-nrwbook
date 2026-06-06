@@ -1,0 +1,10 @@
+Parameter,Sebelum tes,Sesudah isolasi,Target,Keterangan,Status
+Tekanan inlet bar,,,0.0,Valve inlet ditutup,
+Tekanan tertinggi di zona bar,,,0.0,Semua titik tinggi harus turun ke nol,
+Tekanan terendah di zona bar,,,0.0,Semua titik rendah harus turun ke nol,
+Debit washout L/detik setelah 5 menit,,,0,Indikasi awal isolasi,
+Debit washout L/detik setelah 30 menit,,,0,Konfirmasi isolasi,
+Boundary valve kiri,,,Tertutup penuh,Catat nomor valve dan kondisi,
+Boundary valve kanan,,,Tertutup penuh,Catat nomor valve dan kondisi,
+Kesimpulan ZPT,,,,Lulus / gagal,
+Tindak lanjut,,,,Jika gagal: cari boundary bocor dan ulangi ZPT,

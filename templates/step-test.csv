@@ -1,0 +1,8 @@
+Waktu,Blok/valve,Aksi,Baca meter L/detik,Tekanan bar,Durasi stabilisasi menit,Penurunan L/detik,Analisis,Petugas,Catatan
+01:00,Semua terbuka,Catat baseline,,,,,,MNF total,,
+01:15,Blok A,Tutup valve blok A,,,,,,,
+01:30,Blok B,Tutup valve blok B,,,,,,,
+01:45,Blok C,Tutup valve blok C,,,,,,,
+02:00,Blok D,Tutup valve blok D,,,,,,,
+04:00,Semua valve,Buka semua valve,,,,,,Pulihkan layanan,,
+Prioritas investigasi,,,,,,,Segmen dengan penurunan terbesar diserahkan ke tim ALC dalam 1x24 jam,,
