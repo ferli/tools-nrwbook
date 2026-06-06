@@ -149,6 +149,15 @@
   <div class="result" id="ali_result" aria-live="polite">Tekan Hitung</div>
 </div>
 
+<div class="calc-card" id="calc-ratio">
+  <h3>Apparent-to-Real Ratio — Matriks Triage Bab 4</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Rasio = Kehilangan Semu / Kehilangan Riil. Gunakan sebagai triage awal program, lalu validasi dengan neraca air dan kualitas data.</p>
+  <label>Kehilangan Semu / Apparent Losses (% SIV)</label><input type="number" id="ratio_app" value="20" step="0.1" min="0">
+  <label>Kehilangan Riil / Real Losses (% SIV)</label><input type="number" id="ratio_real" value="15" step="0.1" min="0">
+  <button onclick="calcRatio()">Hitung Prioritas</button>
+  <div class="result" id="ratio_result" aria-live="polite">Tekan Hitung</div>
+</div>
+
 <div class="calc-card" id="calc-uar">
   <h3>UARL — Unavoidable Annual Real Losses</h3>
   <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">UARL = (18×Lm + 0.8×Nc + 25×Lp) × P. Hasil dalam Liter/hari. Dari Bab 6.</p>
@@ -380,6 +389,71 @@ function calcAli() {
     `ALI = (${al.toLocaleString()} m³/tahun × 1.000) / (${conn.toLocaleString()} × 365) = ` +
     `<strong>${ali.toFixed(1)} liter/sambungan/hari</strong><br>` +
     `<span style="color:${color}">${band}</span>`;
+}
+
+function calcRatio() {
+  const app = parseFloat(document.getElementById('ratio_app').value);
+  const real = parseFloat(document.getElementById('ratio_real').value);
+  const result = document.getElementById('ratio_result');
+
+  if (!Number.isFinite(app) || !Number.isFinite(real) || app < 0 || real < 0) {
+    result.innerHTML = '<span style="color:#f87171">Isi kehilangan semu dan riil dengan angka 0 atau lebih.</span>';
+    return;
+  }
+
+  if (app === 0 && real === 0) {
+    result.innerHTML = '<span style="color:#fbbf24">Belum ada kehilangan yang bisa diklasifikasikan. Periksa kembali neraca air.</span>';
+    return;
+  }
+
+  const ratio = real === 0 ? Infinity : app / real;
+  let klasifikasi = '';
+  let program = '';
+  let pendukung = '';
+  let target = '';
+  let color = '#e5e7eb';
+
+  if (app < 5 && ratio < 1) {
+    klasifikasi = 'Maintenance';
+    program = 'Preventive Maintenance';
+    pendukung = 'Routine Meter Testing';
+    target = 'Pertahankan NRW';
+    color = '#2dd4bf';
+  } else if (ratio > 2 && app > 15) {
+    klasifikasi = 'Prioritas Tinggi';
+    program = 'Ganti Meter Top 200';
+    pendukung = 'Audit Sambungan Tidak Resmi';
+    target = 'NRW -10% dalam 3 bulan';
+    color = '#f87171';
+  } else if (ratio > 1.2 || ratio === Infinity) {
+    klasifikasi = 'Prioritas 1 (Meter)';
+    program = 'Ganti Meter All';
+    pendukung = 'Zero Consumption Audit';
+    target = 'NRW -8% dalam 6 bulan';
+    color = '#fbbf24';
+  } else if (ratio >= 0.8 && ratio <= 1.2) {
+    klasifikasi = 'Prioritas 2 (Hybrid)';
+    program = 'Ganti Meter + ALC';
+    pendukung = 'Training Tim Lapangan';
+    target = 'NRW -7% dalam 6 bulan';
+    color = '#fbbf24';
+  } else {
+    klasifikasi = 'Prioritas 1 (Teknis)';
+    program = 'Pressure Management';
+    pendukung = 'ALC Zonal';
+    target = 'NRW -5% dalam 3 bulan';
+    color = '#60a5fa';
+  }
+
+  const ratioText = ratio === Infinity ? 'tidak terbatas (Real Losses = 0)' : `${ratio.toFixed(2)}:1`;
+  result.innerHTML =
+    `Rasio Apparent:Real = <strong>${ratioText}</strong><br>` +
+    `<span style="color:${color}"><strong>${klasifikasi}</strong></span><br>` +
+    `Program utama: <strong>${program}</strong><br>` +
+    `Program pendukung: <strong>${pendukung}</strong><br>` +
+    `Target acuan: <strong>${target}</strong><br>` +
+    `<span style="display:block;margin-top:.45rem;color:var(--text2);font-size:.85rem;font-weight:500">` +
+    `Ini triage awal Tabel 4.4; keputusan investasi tetap perlu audit data, BAC, SIV, dan kondisi lapangan.</span>`;
 }
 
 function calcUarl() {
