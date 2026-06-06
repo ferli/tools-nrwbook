@@ -178,6 +178,18 @@
   <div class="result" id="pb_result">Tekan Hitung</div>
 </div>
 
+<div class="calc-card" id="calc-dma-roi">
+  <h3>ROI DMA — Nilai Air Selamat per Tahun</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">ROI DMA = (Nilai Air Selamat per Tahun - Biaya Operasional) / Investasi Awal × 100%. Dari Bab 7, Rumus 7.1.</p>
+  <label>Investasi Awal DMA (Rp)</label><input type="number" id="dma_inv" value="2000000000" min="0">
+  <label>MNF Sebelum Program (L/detik)</label><input type="number" id="dma_mnf_before" value="45" step="0.1" min="0">
+  <label>MNF Sesudah Program (L/detik)</label><input type="number" id="dma_mnf_after" value="28" step="0.1" min="0">
+  <label>Nilai Air / Biaya Produksi (Rp/m³)</label><input type="number" id="dma_value" value="4000" min="0">
+  <label>Biaya Operasional Tahunan (Rp)</label><input type="number" id="dma_opex" value="500000000" min="0">
+  <button onclick="calcDmaRoi()">Hitung ROI DMA</button>
+  <div class="result" id="dma_roi_result" aria-live="polite">Tekan Hitung</div>
+</div>
+
 <div class="calc-card" id="calc-alr">
   <h3>ALR Time — Volume Hilang karena Durasi Bocor</h3>
   <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Volume = Debit × Durasi. Dari Bab 10.</p>
@@ -476,6 +488,46 @@ function calcPayback() {
   document.getElementById('pb_result').innerHTML =
     `Payback = Rp ${inv.toLocaleString()} / Rp ${save.toLocaleString()} = <strong>${yrs.toFixed(2)} tahun</strong><br>` +
     `≈ <strong>${mos.toFixed(1)} bulan</strong>`;
+}
+
+function calcDmaRoi() {
+  const inv = parseFloat(document.getElementById('dma_inv').value);
+  const before = parseFloat(document.getElementById('dma_mnf_before').value);
+  const after = parseFloat(document.getElementById('dma_mnf_after').value);
+  const value = parseFloat(document.getElementById('dma_value').value);
+  const opex = parseFloat(document.getElementById('dma_opex').value);
+  const result = document.getElementById('dma_roi_result');
+
+  if (![inv, before, after, value, opex].every(Number.isFinite) || inv <= 0 || before < 0 || after < 0 || value < 0 || opex < 0) {
+    result.innerHTML = '<span style="color:#f87171">Isi semua input dengan angka valid. Investasi harus lebih besar dari nol.</span>';
+    return;
+  }
+
+  const savedLps = before - after;
+  if (savedLps <= 0) {
+    result.innerHTML = '<span style="color:#fbbf24">MNF belum turun. ROI belum bisa dihitung sebagai manfaat positif.</span>';
+    return;
+  }
+
+  const annualVolume = savedLps * 31536;
+  const annualValue = annualVolume * value;
+  const netBenefit = annualValue - opex;
+  const roi = (netBenefit / inv) * 100;
+  const paybackYears = netBenefit > 0 ? inv / netBenefit : Infinity;
+  const color = roi >= 50 ? '#2dd4bf' : roi >= 15 ? '#fbbf24' : '#f87171';
+  const paybackText = Number.isFinite(paybackYears)
+    ? `${paybackYears.toFixed(2)} tahun (${(paybackYears * 12).toFixed(1)} bulan)`
+    : 'belum balik modal karena manfaat bersih negatif';
+
+  result.innerHTML =
+    `Penurunan MNF = <strong>${savedLps.toFixed(1)} L/detik</strong><br>` +
+    `Volume air selamat = ${savedLps.toFixed(1)} × 31.536 = <strong>${annualVolume.toLocaleString()} m³/tahun</strong><br>` +
+    `Nilai air selamat = <strong>Rp ${annualValue.toLocaleString()}</strong>/tahun<br>` +
+    `Manfaat bersih = Rp ${annualValue.toLocaleString()} - Rp ${opex.toLocaleString()} = <strong>Rp ${netBenefit.toLocaleString()}</strong>/tahun<br>` +
+    `<span style="color:${color}">ROI DMA = <strong>${roi.toFixed(1)}% per tahun</strong></span><br>` +
+    `Payback = <strong>${paybackText}</strong><br>` +
+    `<span style="display:block;margin-top:.45rem;color:var(--text2);font-size:.85rem;font-weight:500">` +
+    `Gunakan hanya setelah MNF, isolasi DMA, dan perubahan konsumsi malam diverifikasi; tidak semua penurunan debit otomatis menjadi air yang dapat ditagih.</span>`;
 }
 
 function calcAlr() {
