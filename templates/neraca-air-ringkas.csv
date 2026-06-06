@@ -1,0 +1,14 @@
+Komponen,Volume m3,% SIV,Metode validasi,Catatan
+Sistem Input Volume (SIV),,100,Meter induk / neraca reservoir / rumus pompa,
+Konsumsi berekening (BAC),,,Data billing dan rekonsiliasi rekening,
+Konsumsi resmi tanpa tagihan (UAC),,,Meter / bukti operasi / taksiran berlabel,
+Apparent Losses,,,Audit meter / pelanggan nol / sambungan tidak resmi,
+Real Losses,,,MNF / DMA / ALC / estimasi kebocoran,
+NRW Total,,,UAC + Apparent Losses + Real Losses,
+Tarif jual rata-rata Rp/m3,,,,Untuk menilai apparent losses
+HPP variabel Rp/m3,,,,Untuk menilai real losses
+Kerugian apparent losses Rp/tahun,,,,Apparent Losses x tarif jual
+Kerugian real losses Rp/tahun,,,,Real Losses x HPP variabel
+Kerugian total Rp/tahun,,,,Kerugian apparent + real
+Jumlah sambungan,,,,Untuk menghitung Rp/sambungan/tahun
+Kerugian per sambungan Rp/tahun,,,,Kerugian total / jumlah sambungan

@@ -1,0 +1,12 @@
+KPI,Satuan,Frekuensi,Nilai bulan ini,Nilai bulan lalu,Tren,Status,Catatan
+% NRW,Persen,Bulanan,,,,,
+Volume NRW,m3/bulan,Bulanan,,,,,
+Kerugian finansial,Rp/bulan,Bulanan,,,,,
+ILI,Indeks,Triwulan,,,,,
+Skor kualitas data,1-10,Triwulan,,,,,
+Tren ILI 12 bulan,Grafik/angka,Triwulan,,,,,
+Komposisi NRW,Real vs Apparent,Triwulan,,,,,
+Tren MNF,L/detik,Triwulan,,,,,
+Perbandingan zona,NRW per zona/DMA,Triwulan,,,,,
+Benchmark nasional,PDAM vs provinsi/nasional,Tahunan,,,,,
+Status keseluruhan,Teks,Bulanan,,,,Perbaikan berlangsung / Status quo / Memburuk,
