@@ -158,6 +158,19 @@
   <div class="result" id="ratio_result" aria-live="polite">Tekan Hitung</div>
 </div>
 
+<div class="calc-card" id="calc-nrw-rupiah">
+  <h3>%NRW → Rupiah per Sambungan</h3>
+  <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">Konversi %NRW menjadi volume, kerugian tahunan, dan Rp/sambungan/tahun. Mengikuti logika Bab 3 dan Bab 6: kehilangan semu dinilai dengan tarif jual, kehilangan riil dengan HPP variabel.</p>
+  <label>SIV Tahunan (m³/tahun)</label><input type="number" id="nrw_siv" value="10000000" min="0">
+  <label>NRW Total (% SIV)</label><input type="number" id="nrw_pct" value="35" step="0.1" min="0" max="100">
+  <label>Porsi Kehilangan Semu dari NRW (%)</label><input type="number" id="nrw_app_share" value="57" step="0.1" min="0" max="100">
+  <label>Jumlah Sambungan</label><input type="number" id="nrw_conn" value="50000" min="1">
+  <label>Tarif Jual Rata-rata (Rp/m³)</label><input type="number" id="nrw_tariff" value="6000" min="0">
+  <label>HPP Variabel / Biaya Produksi (Rp/m³)</label><input type="number" id="nrw_hpp" value="2000" min="0">
+  <button onclick="calcNrwRupiah()">Hitung Rupiah/Sambungan</button>
+  <div class="result" id="nrw_rupiah_result" aria-live="polite">Tekan Hitung</div>
+</div>
+
 <div class="calc-card" id="calc-uar">
   <h3>UARL — Unavoidable Annual Real Losses</h3>
   <p style="color:var(--text2);font-size:.85rem;margin-bottom:1rem;">UARL = (18×Lm + 0.8×Nc + 25×Lp) × P. Hasil dalam Liter/hari. Dari Bab 6.</p>
@@ -466,6 +479,47 @@ function calcRatio() {
     `Target acuan: <strong>${target}</strong><br>` +
     `<span style="display:block;margin-top:.45rem;color:var(--text2);font-size:.85rem;font-weight:500">` +
     `Ini triage awal Tabel 4.4; keputusan investasi tetap perlu audit data, BAC, SIV, dan kondisi lapangan.</span>`;
+}
+
+function calcNrwRupiah() {
+  const siv = parseFloat(document.getElementById('nrw_siv').value);
+  const nrwPct = parseFloat(document.getElementById('nrw_pct').value);
+  const appShare = parseFloat(document.getElementById('nrw_app_share').value);
+  const conn = parseFloat(document.getElementById('nrw_conn').value);
+  const tariff = parseFloat(document.getElementById('nrw_tariff').value);
+  const hpp = parseFloat(document.getElementById('nrw_hpp').value);
+  const result = document.getElementById('nrw_rupiah_result');
+
+  if (![siv, nrwPct, appShare, conn, tariff, hpp].every(Number.isFinite) || siv < 0 || nrwPct < 0 || nrwPct > 100 || appShare < 0 || appShare > 100 || conn <= 0 || tariff < 0 || hpp < 0) {
+    result.innerHTML = '<span style="color:#f87171">Isi input dengan angka valid. Persen harus 0-100 dan sambungan harus lebih besar dari nol.</span>';
+    return;
+  }
+
+  const nrwVolume = siv * nrwPct / 100;
+  const apparentVolume = nrwVolume * appShare / 100;
+  const realVolume = nrwVolume - apparentVolume;
+  const apparentLoss = apparentVolume * tariff;
+  const realLoss = realVolume * hpp;
+  const totalLoss = apparentLoss + realLoss;
+  const perConnYear = totalLoss / conn;
+  const perConnMonth = perConnYear / 12;
+
+  let band = '';
+  let color = '';
+  if (perConnYear < 100000) { band = 'Sangat Sehat'; color = '#2dd4bf'; }
+  else if (perConnYear <= 250000) { band = 'Sehat'; color = '#2dd4bf'; }
+  else if (perConnYear <= 500000) { band = 'Sakit'; color = '#fbbf24'; }
+  else { band = 'Kritis'; color = '#f87171'; }
+
+  result.innerHTML =
+    `Volume NRW = ${siv.toLocaleString()} × ${nrwPct}% = <strong>${nrwVolume.toLocaleString()} m³/tahun</strong><br>` +
+    `Kehilangan semu = <strong>${apparentVolume.toLocaleString()} m³</strong> × Rp ${tariff.toLocaleString()} = Rp ${apparentLoss.toLocaleString()}<br>` +
+    `Kehilangan riil/lainnya = <strong>${realVolume.toLocaleString()} m³</strong> × Rp ${hpp.toLocaleString()} = Rp ${realLoss.toLocaleString()}<br>` +
+    `Total kerugian terindikasi = <strong>Rp ${totalLoss.toLocaleString()}</strong>/tahun<br>` +
+    `Beban per sambungan = <strong>Rp ${perConnYear.toLocaleString()}</strong>/tahun atau Rp ${perConnMonth.toLocaleString()}/bulan<br>` +
+    `<span style="color:${color}"><strong>${band}</strong> menurut ambang Bab 6</span><br>` +
+    `<span style="display:block;margin-top:.45rem;color:var(--text2);font-size:.85rem;font-weight:500">` +
+    `Jika porsi kehilangan semu belum diaudit, ubah input skenario 25%, 50%, dan 75% untuk melihat rentang risiko keuangan.</span>`;
 }
 
 function calcUarl() {
