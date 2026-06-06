@@ -1,0 +1,14 @@
+Komponen,Volume (m³/hari),Persentase
+Volume Input Sistem (SIV) (aktual),22.000,100%
+Konsumsi Resmi Ditagih (BAC),12.500,57%
+Konsumsi Resmi Gratis (UAC),500,2%
+- Kantor PDAM (terukur),300,1%
+- Pemadam kebakaran (aktual),100,"0,5%"
+- Sosial (estimasi wajar),100,"0,5%"
+Kehilangan Semu (Apparent Losses),5.000,23%
+- Meter macet/kurang catat (under-register),4.000,18%
+- Sambungan tidak resmi (estimasi),1.000,5%
+Kehilangan Riil (Real Losses),4.000,18%
+- Kebocoran terlapor & tak terlapor,3.500,16%
+- Background leakage,500,2%
+NRW (UAC+AL+RL),9.500,43%

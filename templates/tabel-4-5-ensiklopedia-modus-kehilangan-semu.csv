@@ -1,0 +1,5 @@
+Modus Kehilangan Semu,Tingkat Bahaya,Cara Deteksi
+Bypass Pipa,Tinggi (Kriminal),Ground Penetrating Radar (GPR) atau cek anomali tekanan.
+Meter Macet/Lambat,Tinggi (Teknis),Cek Zero Consumption > 3 bulan. Ganti meter wajib per 5 tahun.
+Meter Dibalik,Rendah (Amatir),Cek fisik segel dan arah panah body meter.
+Kesalahan Data,Sedang (Admin),Audit data IT vs data lapangan (GIS).

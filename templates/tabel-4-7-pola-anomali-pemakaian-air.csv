@@ -1,0 +1,5 @@
+Jenis Anomali,Pola,Kemungkinan Penyebab
+Flat Line,Pemakaian sama setiap bulan (misal 10 m³),Meter macet di angka tertentu
+Step Down,Penurunan mendadak dan permanen,Kerusakan meter atau manipulasi
+Low for Zone,Pemakaian jauh di bawah rata-rata zona,Bypass atau under-registration
+Seasonal Spike,Lonjakan di bulan tertentu saja,Meter hanya berfungsi saat tekanan tinggi

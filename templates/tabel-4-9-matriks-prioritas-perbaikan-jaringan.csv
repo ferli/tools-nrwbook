@@ -1,0 +1,6 @@
+Kriteria,Bobot,Skor 1 (Buruk),Skor 2 (Cukup),Skor 3 (Baik)
+Umur Pipa,30%,>30 tahun,15-30 tahun,<15 tahun
+Material,20%,Besi/Asbestos,PVC,HDPE/Ductile
+MNF Tinggi (Minimum Night Flow),30%,>50 L/s/km,20-50 L/s/km,<20 L/s/km
+Tekanan,20%,>4 bar,2-4 bar,<2 bar
+Total Score,100%,4-6 (Prioritas 1),7-9 (Prioritas 2),10-12 (Prioritas 3)
